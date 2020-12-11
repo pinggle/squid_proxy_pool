@@ -5,8 +5,11 @@
 """
 from __future__ import print_function
 
+import time
 import requests
 
-s = requests.Session()
-s.proxies.update({"http": "139.xxx.xxx.66:3188"})
-print(s.get("http://httpbin.org/ip"))
+while True:
+	s = requests.Session()
+	s.proxies.update({"http": "127.0.0.1:16889"})
+	print(s.get("http://httpbin.org/ip").content)
+	time.sleep(1)

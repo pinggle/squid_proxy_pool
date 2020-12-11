@@ -1,5 +1,35 @@
 # squid 代理池搭建
 
+
+
+
+
+必须是python2.x环境;
+
+```shell
+### 安装pip:
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+python get-pip.py -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+/usr/local/bin/pip install requests -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+/usr/local/bin/pip install gevent -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+### 启动代理服务器;
+cp /etc/squid/squid.conf /etc/squid/squid.conf.back
+cp /etc/squid/squid.conf /etc/squid/squid.conf.original
+# python --version
+Python 2.7.8
+# python zdy.py
+### 启动测试客户端;
+# python test_proxy.py
+
+### /etc/squid/allow.txt 文件为 squid的白名单配置;
+```
+
+
+
+-----
+
+
+
 ## 简介
 
 使用squid以及收费代理搭建爬虫代理池，自动获取最新可用代理并写入squid配置文件。

@@ -48,8 +48,9 @@ def check_proxy(proxy):
     ip, port = proxy
     _proxies = {"http": "{}:{}".format(ip, port)}
     try:
-        ip_url = "http://2019.ip138.com/ic.asp"
-        res = requests.get(ip_url, proxies=_proxies, timeout=10)
+        ip_url = "http://httpbin.org/ip"
+       	res = requests.get(ip_url, proxies=_proxies, timeout=3)
+        print("return:"+res.content)
         assert ip in res.content
         logger.info("[GOOD] - {}:{}".format(ip, port))
         GOOD_PROXIES.append(proxy)
@@ -71,17 +72,18 @@ def get_proxy():
     global GOOD_PROXIES
     GOOD_PROXIES = []
     # 1. 获取代理IP资源
-    api_url = "http://s.zdaye.com/?api=YOUR_API&count=100&fitter=1&px=2"
+    api_url = "http://www.zdopen.com/ShortProxy/GetIP/?api=202012101721578700&akey=38cbc68743c0d455&count=5&timespan=3&type=1"
     res = requests.get(api_url).content
+    print(res)
     if len(res) == 0:
         logger.error("no data")
-    elif "bad" in res:
-        logger.error("bad request")
+#    elif("bad" in res) :
+#        logger.error("bad request")
     else:
         logger.info("get all proxies")
         proxies = []
         for line in res.split():
-            proxies.append(line.strip().split(":"))
+            proxies.append(line.decode().strip().split(":"))
         pool.map(check_proxy, proxies)
         pool.join()
         # 2. 写入Squid配置文件
