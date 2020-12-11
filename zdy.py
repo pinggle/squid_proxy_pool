@@ -72,13 +72,13 @@ def get_proxy():
     global GOOD_PROXIES
     GOOD_PROXIES = []
     # 1. 获取代理IP资源
-    api_url = "http://www.zdopen.com/ShortProxy/GetIP/?api=202012101721578700&akey=38cbc68743c0d455&count=5&timespan=3&type=1"
+    api_url = "http://www.zdopen.com/ShortProxy/GetIP/?api=xxx&akey=xxx&count=5&timespan=3&type=1"
     res = requests.get(api_url).content
     print(res)
     if len(res) == 0:
         logger.error("no data")
-#    elif("bad" in res) :
-#        logger.error("bad request")
+    elif("bad" in res) :
+        logger.error("bad request")
     else:
         logger.info("get all proxies")
         proxies = []
